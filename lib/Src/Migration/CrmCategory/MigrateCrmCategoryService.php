@@ -53,7 +53,11 @@ class MigrateCrmCategoryService implements IMigrateCrmCategoryService
                 foreach ($existsCategories as $existsCategory) {
                     if ($category::isDefault()) {
                         if ($existsCategory->getIsDefault()){
-                            $defaultCategory = $existsCategory;
+                            if ($existsCategory->getCode() === $category::getCode()) {
+                                $isCreated = true;
+                            } else {
+                                $defaultCategory = $existsCategory;
+                            }
                             break;
                         }
                     } elseif ($existsCategory->getCode() === $category::getCode()){
